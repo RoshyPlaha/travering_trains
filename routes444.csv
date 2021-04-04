@@ -1,0 +1,12 @@
+ID,ControlGroupArea,Panel,OriginInterlocking,OriginSignal,Route,Exit,DestinationPlatform,DestinationLineName,DestinationDirectionOfMoveUpDn,Class,ARS,Notes,OverSetting,PreferredRouteOption,TipLocOriginate,RouteElectrified,OriginPlatform,TipLocDestination,TipLocIntermediate,OriginLineName,EntryDateTime
+976,CAG4,6,BN,S444,R444A1S,S1255,NULL,NULL,Up,S,1,Requires No 3 release on points 1839,0,1,BRGHTN,E,6,LOVR255,NULL,NULL,2021-02-16 11:49:33.723
+977,CAG4,6,BN,S444,R444A2S,S1255,NULL,NULL,Up,S,1,Cat 4 - Alternative route - unsuitable for ARS to set Cat 5 - Alternative Route (see note 3 in table 1) Points to be called first,0,2,BRGHTN,E,6,LOVR255,NULL,NULL,2021-02-16 11:49:33.723
+978,CAG4,6,BN,S444,R444B1S,S1250,NULL,CR,Up,S,1,NULL,0,1,BRGHTN,E,6,LOVR250,NULL,NULL,2021-02-16 11:49:33.723
+979,CAG4,6,BN,S444,R444B2S,S1250,NULL,CR,Up,S,1,Cat 4 - Alternative route - unsuitable for ARS to set Cat 5 - Alternative Route (see note 3 in table 1) Points to be called first,0,2,BRGHTN,E,6,LOVR250,NULL,NULL,2021-02-16 11:49:33.723
+980,CAG4,6,BN,S444,R444C1M,S434,NULL,NULL,Up,M,1,NULL,1,1,BRGHTN,E,6,NULL,NULL,NULL,2021-02-16 11:49:33.723
+981,CAG4,6,BN,S444,R444C2M,S434,NULL,NULL,Up,M,1,Cat 5 - Alternative Route (see note 3 in table 1) Points to be called first,1,2,BRGHTN,E,6,NULL,NULL,NULL,2021-02-16 11:49:33.723
+986,CAG4,6,BN,S444,R444E1M,S701,NULL,NULL,Dn,M,1,Cat 5 - Alternative Route (see note 3 in table 1) Points to be called first,1,2,BRGHTN,E,6,BRGHRC,NULL,NULL,2021-02-16 11:49:33.723
+987,CAG4,6,BN,S444,R444E2M,S701,NULL,NULL,Dn,M,1,NULL,1,1,BRGHTN,E,6,BRGHLRD,NULL,NULL,2021-02-16 11:49:33.723
+987,CAG4,6,BN,S434,R444E2M,S430,NULL,NULL,Dn,M,1,NULL,1,1,BRGHTN,E,6,BRGHLRD,NULL,NULL,2021-02-16 11:49:33.723
+987,CAG4,6,BN,S430,R444E2M,S420,NULL,NULL,Dn,M,1,NULL,1,1,BRGHTN,E,6,BRGHLRD,NULL,NULL,2021-02-16 11:49:33.723
+987,CAG4,6,BN,S420,R444E2M,S430,NULL,NULL,Dn,M,1,NULL,1,1,BRGHTN,E,6,BRGHLRD,NULL,NULL,2021-02-16 11:49:33.723

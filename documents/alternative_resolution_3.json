@@ -1,0 +1,52 @@
+{
+    "conflict_id": "qw122a_ke921r_BRGTN_07_02_2020",
+    "correlation_id": "1000-1000-1000-1000",
+    "alternative_id": "666",
+    "alternative_preference": 3,
+    "Solution": {
+        "journey_details": [
+            {
+                "headcode": "2A11",
+                "train_uid": "qw122a",
+                "class_type": "1",
+                "routes": [
+                    {
+                        "route": "3333",
+                        "time_route_traversed": "00:01:00"
+                    },
+                    {
+                        "route": "3333",
+                        "time_route_traversed": "00:02:00"
+                    },
+                    {
+                        "route": "3333",
+                        "time_route_traversed": "00:03:00"
+                    }
+                ]
+            },
+            {
+                "headcode": "2A22",
+                "train_uid": "ke921r",
+                "class_type": "1",
+                "routes": [
+                    {
+                        "route": "R123AM",
+                        "time_route_traversed": "00:01:00"
+                    },
+                    {
+                        "route": "R133AM",
+                        "time_route_traversed": "00:02:00"
+                    },
+                    {
+                        "route": "R144AM",
+                        "time_route_traversed": "00:03:00"
+                    }
+                ]
+            }
+        ],
+        "metadata": {
+            "methodology": "rerouting",
+            "savedTime": "1 minutes"
+        }
+    }
+}

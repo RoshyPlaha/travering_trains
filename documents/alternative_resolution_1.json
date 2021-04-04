@@ -1,0 +1,33 @@
+{
+    "conflict_id": "qw122a_ke921r_BRGTN_07_02_2020",
+    "correlation_id": "1000-1000-1000-1000",
+    "alternative_id": "222",
+    "alternative_preference": 1,
+    "Solution": {
+        "journey_details": [
+            {
+                "headcode": "1A11",
+                "train_uid": "qw122a",
+                "class_type": "1",
+                "routes": [
+                    {
+                        "route": "R123AM",
+                        "time_route_traversed": "00:01:00"
+                    },
+                    {
+                        "route": "R133AM",
+                        "time_route_traversed": "00:02:00"
+                    },
+                    {
+                        "route": "R144AM",
+                        "time_route_traversed": "00:03:00"
+                    }
+                ]
+            }
+        ],
+        "metadata": {
+            "methodology": "rerouting",
+            "savedTime": "2 minutes"
+        }
+    }
+}
