@@ -1,0 +1,35 @@
+{
+  "headcode": "1A11",
+  "tiplocs": [
+    {
+      "station": "brighton",
+      "signal": "S444",
+      "arrival_time": "10:10",
+      "departure_time": "10:12"
+    },
+    {
+      "station": "preston_park",
+      "signal": "S422",
+      "arrival_time": "10:16:",
+      "departure_time": "10:19"
+    },
+    {
+      "station": "hasocks",
+      "signal": "S384",
+      "arrival_time": "10:20",
+      "departure_time": "10:25"
+    },
+    {
+      "station": "gatwick",
+      "signal": "S254",
+      "arrival_time": "10:31",
+      "departure_time": "10:32"
+    },
+    {
+      "station": "end",
+      "signal": "S220",
+      "arrival_time": "10:45",
+      "departure_time": "10:45"
+    }
+  ]
+}

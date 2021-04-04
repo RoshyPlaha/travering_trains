@@ -2,6 +2,7 @@ import pandas as pd
 import networkx as nx
 import matplotlib.pyplot as plt
 from matplotlib.pyplot import figure, text
+import json
 
 from dataclasses import dataclass
 
@@ -12,28 +13,36 @@ class Route:
     tiploc: str# add something if the signal is at a TIPLOC. and then lets add an edge description for it similiar to traversal times
     traversalTime: int
 
-df_route_panel_6 = pd.read_csv('routesPanel6.csv')
-df_route_panel_5 = pd.read_csv('routesPanel5.csv')
-df_route_panel_4 = pd.read_csv('routesPanel4.csv')
-df_route_panel_3 = pd.read_csv('routesPanel3.csv')
+@dataclass()
+class Tiploc:
+    station: str
+    signal: str
+    arrival_time: str
+    departure_time: str
 
-routes = set([])
-for index, row in df_route_panel_6.iterrows():
-    routes.add(Route(row['OriginSignal'], row['Exit'], row['TipLocOriginate'], row['TraversalTimes']))
+@dataclass()
+class Journey:
+    headcode: str
+    tiplocs: list
 
-for index, row in df_route_panel_5.iterrows():
-    routes.add(Route(row['OriginSignal'], row['Exit'], row['TipLocOriginate'], row['TraversalTimes']))
+def load_panel_data(routes):
+    df_route_panel_6 = pd.read_csv('routesPanel6.csv')
+    df_route_panel_5 = pd.read_csv('routesPanel5.csv')
+    df_route_panel_4 = pd.read_csv('routesPanel4.csv')
+    df_route_panel_3 = pd.read_csv('routesPanel3.csv')
 
-for index, row in df_route_panel_4.iterrows():
-    routes.add(Route(row['OriginSignal'], row['Exit'], row['TipLocOriginate'], row['TraversalTimes']))
+    for index, row in df_route_panel_6.iterrows():
+        routes.add(Route(row['OriginSignal'], row['Exit'], row['TipLocOriginate'], row['TraversalTimes']))
 
-for index, row in df_route_panel_3.iterrows():
-    routes.add(Route(row['OriginSignal'], row['Exit'], row['TipLocOriginate'], row['TraversalTimes']))
+    for index, row in df_route_panel_5.iterrows():
+        routes.add(Route(row['OriginSignal'], row['Exit'], row['TipLocOriginate'], row['TraversalTimes']))
 
-G = nx.DiGraph()
-for route in routes:
-    G.add_edge(route.entrySignal, route.exitSignal, isATiploc=route.tiploc, traversalTime=route.traversalTime)
+    for index, row in df_route_panel_4.iterrows():
+        routes.add(Route(row['OriginSignal'], row['Exit'], row['TipLocOriginate'], row['TraversalTimes']))
 
+    for index, row in df_route_panel_3.iterrows():
+        routes.add(Route(row['OriginSignal'], row['Exit'], row['TipLocOriginate'], row['TraversalTimes']))
+    return routes
 
 def calculate_shortest_path(entry_signal, exit_signal):
     try:
@@ -45,34 +54,59 @@ def calculate_shortest_path(entry_signal, exit_signal):
 def find_previous_signal_to_calculate_shortest_path(result, entry_signal, exit_signal):
     next_signal = exit_signal
     while result == 0:
+        print('Warning - could not get to next TIPLOC for signal: ', exit_signal, ' there is a data error')
         # add 2 to entrance signal - to see if the next closest signal can create a path
         next_signal = int(next_signal[1:]) + 2
-        print("next number to try: ", next_signal)
+        print("The next previous signal to try to connect to is: ", next_signal)
 
         next_signal = 'S' + str(next_signal)
         result = calculate_shortest_path(entry_signal, next_signal)
     return result
 
-entry_signal = 'S444'
-exit_signal = 'S220'
+routes = set([])
+routes = load_panel_data(routes)
 
-result = calculate_shortest_path(entry_signal, exit_signal)
-result = find_previous_signal_to_calculate_shortest_path(result, entry_signal, exit_signal)
+G = nx.DiGraph()
+for route in routes:
+    G.add_edge(route.entrySignal, route.exitSignal, isATiploc=route.tiploc, traversalTime=route.traversalTime)
 
-print(result)
+
+def load_trains_journey(filename):
+    with open('train1_journey.json') as f:
+      loaded = json.load(f)
+      tiplocs = []
+      for i in loaded['tiplocs']:
+          tiplocs.append(Tiploc(i['station'], i['signal'], i['arrival_time'], i['departure_time']))
+    return Journey(loaded['headcode'], tiplocs)
 
 
-other_result = nx.shortest_path(G, 'S333', 'S439', weight='traversalTime')
+train = load_trains_journey('train1_journey.json')
+entry_signal = train.tiplocs[0].signal
+exit_signal = train.tiplocs[-1].signal
+
+# calculate paths from TipLoc to TipLoc in journey - as opposed to just whole journey
+path = []
+for i in range(len(train.tiplocs)-1):
+    entrance, exit = train.tiplocs[i].signal, train.tiplocs[i+1].signal
+    print('Signals to be used: ', (entry_signal, exit_signal))
+    result_to_next_tiploc = calculate_shortest_path(entrance, exit)
+    result = find_previous_signal_to_calculate_shortest_path(result_to_next_tiploc, entry_signal, exit_signal)
+    path.append(result)
+print(' > > ', result) # ['S444', 'S434', 'S430', 'S422', 'S370X', 'S350X', 'S340', 'S306', 'S294', 'S292', 'S288', 'S284', 'S276', 'S270', 'S266', 'S262', 'S252', 'S240', 'S230', 'S224']
+
+def weight_calculator(u, v, d):
+    return d['traversalTime']
+
+other_result = nx.shortest_path(G, 'S333', 'S439', weight=weight_calculator)
 print(other_result)
 
 
 red_shortest_distance_edges = []
-for i in range(len(result)):
+for i in range(len(result)-1):
     try:
         red_shortest_distance_edges.append((result[i], result[i+1]))
     except:
         print('index failure')
-
 
 # Specify the edges you want here
 edge_colours = ['black' if not edge in red_shortest_distance_edges else 'red'
