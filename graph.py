@@ -121,10 +121,10 @@ def generate_path(loaded_train):
 G = nx.DiGraph()
 setup_infrastructure(graph=G)# in the future, based off what infrastructure is available, we can turn on / off nodes
 
-of = load_train_file_names('trains_dir')
-print('There are this many file names to generate paths for: ', len(of))
+filenames = load_train_file_names('trains_dir')
+print('There are this many file names to generate paths for: ', len(filenames))
 
-for filename in of:
+for filename in filenames:
     train = load_trains_journey(filename)
     print('> > > >  New train %s goes from / to %s, which are Tiplocs from / to %s' %(train.headcode, (train.tiplocs[0].signal, train.tiplocs[-1].signal), (train.tiplocs[0].station, train.tiplocs[-1].station)))
     tiploc_paths, all_routes = generate_path(train)
